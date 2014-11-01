@@ -6,8 +6,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
+        android:theme="@style/ModernTheme">
+    <activity
             android:name="course.lab.modernartui.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>

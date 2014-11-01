@@ -2,10 +2,18 @@ package course.lab.modernartui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import course.lab.modernartui.dialogs.MoreInformationDialog;
+
+/**
+ * @author Tilen Faganel
+ */
 public class MainActivity extends Activity {
+
+    private static final String TAG = MainActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,18 +29,8 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public void showDialog(MenuItem item) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        new MoreInformationDialog().show(getFragmentManager(), TAG);
     }
 }
