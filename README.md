@@ -1,4 +1,4 @@
-# Modern Art UI
+# Modern Art UI [![Build Status](https://travis-ci.org/TFaga/modern-art-ui.svg?branch=master)](https://travis-ci.org/TFaga/modern-art-ui)
 
 > An android application displaying a UI with modern art as part of a course for developing android applications on Coursera.
 
