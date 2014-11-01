@@ -2,15 +2,102 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context=".MainActivity">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:id="@+id/palette"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <View
+            android:background="@color/dull_green"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_width="100dip"
+            android:layout_height="200dip"
+            android:id="@+id/view1">
+        </View>
+
+        <View
+            android:background="@color/dull_blue"
+            android:layout_width="150dip"
+            android:layout_height="300dip"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/view1"
+            android:layout_toEndOf="@+id/view1"
+            android:id="@+id/view2">
+        </View>
+
+        <View
+            android:background="@color/dull_dark_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="100dip"
+            android:layout_toEndOf="@+id/view2"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/view2"
+            android:id="@+id/view">
+        </View>
+
+        <View
+            android:background="@color/lightgray"
+            android:layout_width="wrap_content"
+            android:layout_height="200dip"
+            android:layout_toEndOf="@+id/view2"
+            android:id="@+id/view5"
+            android:layout_below="@+id/view"
+            android:layout_toRightOf="@+id/view2">
+        </View>
+
+        <View
+            android:background="@color/white"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_toEndOf="@+id/view2"
+            android:layout_toRightOf="@+id/view2"
+            android:layout_below="@+id/view1"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/view2"
+            android:layout_toStartOf="@+id/view2">
+        </View>
+
+        <View
+            android:background="@color/dull_light_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="100dip"
+            android:layout_toEndOf="@+id/view2"
+            android:layout_toRightOf="@+id/view2"
+            android:layout_below="@+id/view2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/view3">
+        </View>
+
+        <View
+            android:background="@color/dull_dark_blue"
+            android:layout_width="170dip"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/view2"
+            android:layout_toRightOf="@+id/view2"
+            android:layout_below="@+id/view3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/view4">
+        </View>
+
+        <View
+            android:background="@color/dull_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/view4"
+            android:layout_below="@+id/view3"
+            android:layout_toRightOf="@+id/view4">
+        </View>
+    </RelativeLayout>
 
     <SeekBar
         android:layout_width="wrap_content"
