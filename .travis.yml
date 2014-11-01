@@ -20,7 +20,7 @@ before_script:
 after_success:
 - >
    [[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_TAG == "" ]] &&
-   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk"
-- "[[ $TRAVIS_BRANCH == \"master\" ]] && [[ $TRAVIS_PULL_REQUEST == \"false\" ]] && [[ $TRAVIS_TAG == \"\" ]] && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-release-unsigned.apk binaries \"$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk\""
-- "[[ $TRAVIS_BRANCH == \"master\" ]] && [[ $TRAVIS_PULL_REQUEST == \"false\" ]] && [[ $TRAVIS_TAG == \"\" ]] && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/lint-results.html binaries \"$TRAVIS_REPO_SLUG/lint-results.html\""
-- "[[ $TRAVIS_BRANCH == \"master\" ]] && [[ $TRAVIS_PULL_REQUEST == \"false\" ]] && [[ $TRAVIS_TAG == \"\" ]] && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/lint-results.xml binaries \"$TRAVIS_REPO_SLUG/lint-results.xml\""
+   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk" &&
+   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk" &&
+   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/lint-results.html binaries "$TRAVIS_REPO_SLUG/lint-results.html" &&
+   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/lint-results.xml binaries "$TRAVIS_REPO_SLUG/lint-results.xml"
