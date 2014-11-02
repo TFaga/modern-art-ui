@@ -11,6 +11,9 @@ android {
         versionCode System.getenv("TRAVIS_BUILD_NUMBER") as Integer ?: 1
         versionName "0.0"
     }
+    lintOptions {
+        abortOnError false
+    }
     buildTypes {
         release {
             runProguard false
