@@ -31,7 +31,7 @@ after_success:
 - |-
   if [[ $TRAVIS_TAG != "" && $TRAVIS_PULL_REQUEST == "false" ]]; then mv app/build/outputs/apk/app-release-unsigned.apk "app/build/outputs/apk/ModernArtUI.$TRAVIS_TAG.apk";
   git config --global user.email "travis@travis-ci.org"; git config --global user.name "travis"; git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG $HOME/gh-pages > /dev/null;
-  mv app/build/docs/javadoc $HOME/gh-pages/docs/$TRAVIS_TAG; cd $HOME/gh-pages && rm -f docs/latest && ln -s $TRAVIS_TAG docs/latest;
+  mv app/build/docs/javadoc $HOME/gh-pages/docs/$TRAVIS_TAG; cd $HOME/gh-pages && rm -rf docs/latest && cp -Rf docs/$TRAVIS_TAG docs/latest;
   git add -f .; git commit -m "Added $TRAVIS_TAG javadoc"; git push -fq origin gh-pages > /dev/null; fi
 deploy:
   provider: releases
