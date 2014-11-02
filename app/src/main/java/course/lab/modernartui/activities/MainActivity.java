@@ -13,6 +13,10 @@ import course.lab.modernartui.R;
 import course.lab.modernartui.dialogs.MoreInformationDialog;
 
 /**
+ * Contains the main activity of the application. It contains a palette that holds several
+ * rectangular views, each with its own background color and a seek bar at the bottom, dragging
+ * which changes the color of each rectangular (except the white and gray ones).
+ *
  * @author Tilen Faganel
  */
 public class MainActivity extends Activity {
@@ -21,6 +25,17 @@ public class MainActivity extends Activity {
 
     private RelativeLayout palette;
 
+    /**
+     * Called when the activity is starting.
+     * <p/>
+     * Sets up the main activity content view and registers a change handler for the activities
+     * seek bar.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it
+     *                           most
+     *                           recently supplied.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,9 +48,11 @@ public class MainActivity extends Activity {
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             /**
-             * Notification that the progress level has changed. Clients can use the fromUser
-             * parameter
-             * to distinguish user-initiated changes from those that occurred programmatically.
+             * Notification that the seek bar progress level has changed.
+             *
+             * When the seek bar state changes, loop through the child's of the palette view and
+             * change each individuals view color based on the percentage that the seek bar is
+             * currently at. Ignores views that are either white or some shade of gray.
              *
              * @param seekBar  The SeekBar whose progress has changed
              * @param progress The current progress level. This will be in the range 0..100
@@ -71,8 +88,7 @@ public class MainActivity extends Activity {
             }
 
             /**
-             * Notification that the user has started a touch gesture. Clients may want to use this
-             * to disable advancing the seekbar.
+             * Currently used for nothing.
              *
              * @param seekBar The SeekBar in which the touch gesture began
              */
@@ -82,8 +98,7 @@ public class MainActivity extends Activity {
             }
 
             /**
-             * Notification that the user has finished a touch gesture. Clients may want to use this
-             * to re-enable advancing the seekbar.
+             * Currently used for nothing.
              *
              * @param seekBar The SeekBar in which the touch gesture began
              */
@@ -94,6 +109,18 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * Initialize the contents of the Activity's standard options menu.  Menu items are placed
+     * in to <var>menu</var>.
+     *
+     * <p>This is only called once, the first time the options menu is
+     * displayed.
+     *
+     * @param menu The options menu in which the items are placed.
+     *
+     * @return Returns true for the menu to be displayed;
+     *         if it returns false it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -101,6 +128,13 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    /**
+     * Evaluates when the user clicks the more information options menu.
+     *
+     * Shows the more information dialog fragment.
+     *
+     * @param item The menu item that was clicked
+     */
     public void showDialog(MenuItem item) {
 
         new MoreInformationDialog().show(getFragmentManager(), TAG);
