@@ -4,13 +4,13 @@ env:
   - secure: U2VFFbc4vB7s3f8VnWgl8XZBUnCtaDnNmLYoD8bWmIdTNAFbNZEiaUxotqvhYhaOrUExLCEuShfxm7U8M+GGQ7gvEb+QuiyM1UnaAKvFvXeScyvVPOS7drTnf5D/8dNkIy4422Nt12P4ZMcm/X6x4yl+4O/t3tM/FgwYVloLxRw=
   - secure: LouPCdJXIXp/rF8mu0bnbFJd81W4Y/v5iYj17hakZWsfzbCBS+kYZgnz1igOVHcj7rK/ONjJKeDkHXNKGHkqWJEOxBBN3MIMzOrilEB/atetVW7iZYLUc3XjN8xR6K/04KlA1rP/qtSHSawFOHwwD4CLNUgJh7aPHyB4IL05SSE=
 android:
-    components:
-    - platform-tools
-    - tools
-    - build-tools-20.0.0
-    - android-19
-    - android-21
-    - sys-img-armeabi-v7a-android-19
+  components:
+  - platform-tools
+  - tools
+  - build-tools-20.0.0
+  - android-19
+  - android-21
+  - sys-img-armeabi-v7a-android-19
 before_install:
 - npm install -g azure-cli
 before_script:
@@ -19,9 +19,22 @@ before_script:
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
 after_success:
-- >
-   [[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_TAG == "" ]] &&
-   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk" &&
-   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk" &&
-   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/lint-results.html binaries "$TRAVIS_REPO_SLUG/lint-results.html" &&
-   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY app/build/outputs/lint-results.xml binaries "$TRAVIS_REPO_SLUG/lint-results.xml"
+- '[[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[
+  $TRAVIS_TAG == "" ]] && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k
+  $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk"
+  && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
+  app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk"
+  && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
+  app/build/outputs/lint-results.html binaries "$TRAVIS_REPO_SLUG/lint-results.html"
+  && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
+  app/build/outputs/lint-results.xml binaries "$TRAVIS_REPO_SLUG/lint-results.xml"'
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api-key:
+      secure: WVEDy+v+weYaBjQTXs3B6UAPEHftHOw6IOkS5vhS1e/ArY+bRYcZm5ql++TrKXU3JOUMHQW2sa+FNB2GvqCQgeEao2lFw4dcGZPT/j74lGyN617abVTncJK+NtcTyVNhKsZUx4X6jQzyu1EOM6RHk0WJuOfoFL1/Ras6zWSZxQw=
+  file: app/build/outputs/apk/app-release-unsigned.apk
+  on:
+    tags: true
+    all_branches: true
+    repo: TFaga/modern-art-ui
