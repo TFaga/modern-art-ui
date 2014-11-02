@@ -4,7 +4,7 @@
     <string name="app_name">Modern Art UI</string>
     <string name="action_more_information">More information</string>
 
-    <string name="dialog_text">Inspired by the works of artists from the Museum of Modern Art in New York</string>
+    <string name="dialog_text">Inspired by the works of artists from the Museum of Modern Art in New York.\n\nClick below to learn more!</string>
     <string name="dialog_not_now">Not now</string>
     <string name="dialog_visit">Visit MOMA</string>
 

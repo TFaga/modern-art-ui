@@ -20,7 +20,6 @@ public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getName();
 
     private RelativeLayout palette;
-    private SeekBar seek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         palette = (RelativeLayout) findViewById(R.id.palette);
-        seek = (SeekBar) findViewById(R.id.seekBar);
+        SeekBar seek = (SeekBar) findViewById(R.id.seekBar);
 
         seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
