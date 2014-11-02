@@ -3,6 +3,7 @@ env:
   global:
   - secure: U2VFFbc4vB7s3f8VnWgl8XZBUnCtaDnNmLYoD8bWmIdTNAFbNZEiaUxotqvhYhaOrUExLCEuShfxm7U8M+GGQ7gvEb+QuiyM1UnaAKvFvXeScyvVPOS7drTnf5D/8dNkIy4422Nt12P4ZMcm/X6x4yl+4O/t3tM/FgwYVloLxRw=
   - secure: LouPCdJXIXp/rF8mu0bnbFJd81W4Y/v5iYj17hakZWsfzbCBS+kYZgnz1igOVHcj7rK/ONjJKeDkHXNKGHkqWJEOxBBN3MIMzOrilEB/atetVW7iZYLUc3XjN8xR6K/04KlA1rP/qtSHSawFOHwwD4CLNUgJh7aPHyB4IL05SSE=
+  - secure: QR77x4U2UGZDHS9lnZn5HsyQv3lvRvVKMJjfNQTrBk3hsiArX1vweZAbuHI1Tk2DbikiSCYNBBggkpOW75pUmvFOIKEfkwaCGRwpG+vy4FOtIBgLHi4W75RQrb87fwaM4iHaUEtUoRilVmzW+BQcT/epLSDapFbiOmCuxdCOj+Y=
 android:
   components:
   - platform-tools
@@ -20,17 +21,23 @@ before_script:
 - adb shell input keyevent 82 &
 script: ./gradlew build connectedCheck generatereleaseJavadoc
 after_success:
+# Upload nightly build artifacts to azure blog storage
 - '[[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[
   $TRAVIS_TAG == "" ]] && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k
   $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk"
   && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
   app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk"'
-- '[[ $TRAVIS_TAG != "" ]] && mv app/build/outputs/apk/app-release-unsigned.apk "app/build/outputs/apk/ModernArtUI.$TRAVIS_TAG.apk"'
+# Update JavaDoc on new releases to github pages
+- |-
+  if [[ $TRAVIS_TAG != "" && $TRAVIS_PULL_REQUEST == "false" ]]; then mv app/build/outputs/apk/app-release-unsigned.apk "app/build/outputs/apk/ModernArtUI.$TRAVIS_TAG.apk";
+  git config --global user.email "travis@travis-ci.org"; git config --global user.name "travis"; git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG $HOME/gh-pages > /dev/null;
+  mv app/build/docs/javadoc $HOME/gh-pages/docs/$TRAVIS_TAG; cd $HOME/gh-pages && rm -f docs/latest && ln -s $TRAVIS_TAG docs/latest;
+  git add -f .; git commit -m "Added $TRAVIS_TAG javadoc"; git push -fq origin gh-pages > /dev/null; fi
 deploy:
   provider: releases
   skip_cleanup: true
   api-key:
-      secure: WVEDy+v+weYaBjQTXs3B6UAPEHftHOw6IOkS5vhS1e/ArY+bRYcZm5ql++TrKXU3JOUMHQW2sa+FNB2GvqCQgeEao2lFw4dcGZPT/j74lGyN617abVTncJK+NtcTyVNhKsZUx4X6jQzyu1EOM6RHk0WJuOfoFL1/Ras6zWSZxQw=
+    secure: INjK9H4HeVnVwxyuhsIP72k44YFDNDgjQ2R/Bu2AHYl6jxLzTUd4ZelNqbpXwN2V0CbdsVRRV0NBeDJs2duyRr7v7VvQ82U7iSgZywMLsqhqkmjoWYqRoI+Lst6wCW69u8/eLqyd8zfqgKfVifwijHKorpOG663ebhqaBXjRVG0=
   file: app/build/outputs/apk/ModernArtUI.${TRAVIS_TAG}.apk
   on:
     tags: true
