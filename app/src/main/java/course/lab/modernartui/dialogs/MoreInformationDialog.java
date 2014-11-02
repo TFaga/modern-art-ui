@@ -38,7 +38,8 @@ public class MoreInformationDialog extends DialogFragment {
                      * This method will be invoked when the positive button in the dialog
                      * is clicked.
                      *
-                     * Sets up an intent to visit a website and starts an activity with it.
+                     * Sets up an intent to visit a website with a web browser and starts an
+                     * activity with it.
                      *
                      * @param dialog The dialog that received the click.
                      * @param id The button that was clicked (the position
