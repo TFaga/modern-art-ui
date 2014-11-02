@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 18
+    compileSdkVersion 21
     buildToolsVersion "20.0.0"
 
     defaultConfig {
         applicationId "course.lab.modernartui"
         minSdkVersion 14
-        targetSdkVersion 18
+        targetSdkVersion 21
         versionCode System.getenv("TRAVIS_BUILD_NUMBER") as Integer ?: 1
         versionName "0.0"
     }
