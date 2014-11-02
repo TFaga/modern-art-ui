@@ -19,7 +19,7 @@ public class MoreInformationDialog extends DialogFragment {
 
     /**
      * Builds the more information alert dialog.
-     * <p/>
+     *
      * It sets the newly created dialog message, two buttons and a handler for the positive
      * button.
      *

@@ -23,11 +23,7 @@ after_success:
   $TRAVIS_TAG == "" ]] && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k
   $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk"
   && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
-  app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk"
-  && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
-  app/build/outputs/lint-results.html binaries "$TRAVIS_REPO_SLUG/lint-results.html"
-  && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
-  app/build/outputs/lint-results.xml binaries "$TRAVIS_REPO_SLUG/lint-results.xml"'
+  app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk"'
 - '[[ $TRAVIS_TAG != "" ]] && mv app/build/outputs/apk/app-release-unsigned.apk "app/build/outputs/apk/ModernArtUI.$TRAVIS_TAG.apk"'
 deploy:
   provider: releases

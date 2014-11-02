@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
 
     /**
      * Called when the activity is starting.
-     * <p/>
+     *
      * Sets up the main activity content view and registers a change handler for the activities
      * seek bar.
      *
