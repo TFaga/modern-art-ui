@@ -49,7 +49,9 @@ public class MoreInformationDialog extends DialogFragment {
 
                         Intent visit = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse("http://www.moma.org"));
-                        startActivity(visit);
+                        Intent chooser = Intent.createChooser(visit,
+                                getResources().getString(R.string.open_with));
+                        startActivity(chooser);
                     }
                 }).setNegativeButton(R.string.dialog_not_now, null);
 

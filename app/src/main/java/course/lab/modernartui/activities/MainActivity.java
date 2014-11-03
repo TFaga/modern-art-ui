@@ -114,12 +114,11 @@ public class MainActivity extends Activity {
      * in to <var>menu</var>.
      *
      * <p>This is only called once, the first time the options menu is
-     * displayed.
+     * displayed.</p>
      *
      * @param menu The options menu in which the items are placed.
-     *
      * @return Returns true for the menu to be displayed;
-     *         if it returns false it will not be shown.
+     * if it returns false it will not be shown.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
