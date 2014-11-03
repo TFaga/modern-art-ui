@@ -28,17 +28,26 @@ after_success:
   && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
   app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk"'
 # Update JavaDoc on new releases to github pages
-- |-
-  if [[ $TRAVIS_TAG != "" && $TRAVIS_PULL_REQUEST == "false" ]]; then mv app/build/outputs/apk/app-release-unsigned.apk "app/build/outputs/apk/ModernArtUI.$TRAVIS_TAG.apk";
-  git config --global user.email "travis@travis-ci.org"; git config --global user.name "travis"; git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG $HOME/gh-pages > /dev/null;
-  mv app/build/docs/javadoc $HOME/gh-pages/docs/$TRAVIS_TAG; cd $HOME/gh-pages && rm -rf docs/latest && cp -Rf docs/$TRAVIS_TAG docs/latest;
-  git add -f .; git commit -m "Added $TRAVIS_TAG javadoc"; git push -fq origin gh-pages > /dev/null; fi
+- 'if [[ $TRAVIS_TAG != "" && $TRAVIS_PULL_REQUEST == "false" ]];then
+  mv app/build/outputs/apk/app-release-unsigned.apk "app/build/outputs/apk/ModernArtUI.$TRAVIS_TAG.apk";
+
+  git config --global user.email "travis@travis-ci.org";
+  git config --global user.name "travis";
+  git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/$TRAVIS_REPO_SLUG $HOME/gh-pages > /dev/null;
+
+  mv app/build/docs/javadoc $HOME/gh-pages/docs/$TRAVIS_TAG;
+  cd $HOME/gh-pages && rm -rf docs/latest && cp -Rf docs/$TRAVIS_TAG docs/latest;
+
+  git add -f .;
+  git commit -m "Added $TRAVIS_TAG javadoc";
+  git push -fq origin gh-pages > /dev/null;
+  fi'
 deploy:
   provider: releases
   skip_cleanup: true
   api-key:
     secure: INjK9H4HeVnVwxyuhsIP72k44YFDNDgjQ2R/Bu2AHYl6jxLzTUd4ZelNqbpXwN2V0CbdsVRRV0NBeDJs2duyRr7v7VvQ82U7iSgZywMLsqhqkmjoWYqRoI+Lst6wCW69u8/eLqyd8zfqgKfVifwijHKorpOG663ebhqaBXjRVG0=
-  file: app/build/outputs/apk/ModernArtUI.${TRAVIS_TAG}.apk
+  file: $HOME/$TRAVIS_REPO_SLUG/app/build/outputs/apk/ModernArtUI.${TRAVIS_TAG}.apk
   on:
     tags: true
     all_branches: true
