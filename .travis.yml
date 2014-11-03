@@ -42,14 +42,12 @@ after_success:
   git commit -m "Added $TRAVIS_TAG javadoc";
   git push -fq origin gh-pages > /dev/null;
   fi'
-- ls -la $HOME
-- tree $HOME
 deploy:
   provider: releases
   skip_cleanup: true
   api-key:
     secure: INjK9H4HeVnVwxyuhsIP72k44YFDNDgjQ2R/Bu2AHYl6jxLzTUd4ZelNqbpXwN2V0CbdsVRRV0NBeDJs2duyRr7v7VvQ82U7iSgZywMLsqhqkmjoWYqRoI+Lst6wCW69u8/eLqyd8zfqgKfVifwijHKorpOG663ebhqaBXjRVG0=
-  file: $HOME/$TRAVIS_REPO_SLUG/app/build/outputs/apk/ModernArtUI.${TRAVIS_TAG}.apk
+  file: $HOME/build/$TRAVIS_REPO_SLUG/app/build/outputs/apk/ModernArtUI.${TRAVIS_TAG}.apk
   on:
     tags: true
     all_branches: true
