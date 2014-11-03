@@ -42,6 +42,8 @@ after_success:
   git commit -m "Added $TRAVIS_TAG javadoc";
   git push -fq origin gh-pages > /dev/null;
   fi'
+- mv app/build/outputs/apk/app-release-unsigned.apk "app/build/outputs/apk/ModernArtUI.$TRAVIS_TAG.apk"
+- ls -la app/build/outputs/apk
 deploy:
   provider: releases
   skip_cleanup: true
