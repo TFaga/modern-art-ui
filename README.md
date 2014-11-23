@@ -7,7 +7,7 @@
 Packages for the latest stable build can be downloaded on the [releases page](https://github.com/TFaga/modern-art-ui/releases).
 
 You can also download the latest master nightly [debug](https://portalvhdssm6mkh1w1w6cn.blob.core.windows.net/binaries/TFaga/modern-art-ui/modern-art-ui-debug.apk)
-or [release](https://portalvhdssm6mkh1w1w6cn.blob.core.windows.net/binaries/TFaga/modern-art-ui/modern-art-ui-release-unsigned.apk) build.
+or [release](https://portalvhdssm6mkh1w1w6cn.blob.core.windows.net/binaries/TFaga/modern-art-ui/modern-art-ui-release-unsigned.apk) build, also you can view the latest [lint](https://portalvhdssm6mkh1w1w6cn.blob.core.windows.net/binaries/TFaga/modern-art-ui/lint-results.xml) results.
 
 ## Building
 
