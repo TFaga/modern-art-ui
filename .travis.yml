@@ -22,11 +22,18 @@ before_script:
 script: ./gradlew build connectedCheck generatereleaseJavadoc
 after_success:
 # Upload nightly build artifacts to azure blog storage
-- '[[ $TRAVIS_BRANCH == "master" ]] && [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[
-  $TRAVIS_TAG == "" ]] && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k
-  $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk"
-  && azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
-  app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk"'
+- 'if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_TAG == "" ]]
+
+  azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k
+  $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk";
+
+  azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
+  app/build/outputs/apk/app-release-unsigned.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-release-unsigned.apk";
+
+  azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k $AZURE_STORAGE_ACCESS_KEY
+  app/build/outputs/lint-results.xml binaries "$TRAVIS_REPO_SLUG/lint-results.xml"
+
+  fi'
 # Update JavaDoc on new releases to github pages
 - 'if [[ $TRAVIS_TAG != "" && $TRAVIS_PULL_REQUEST == "false" ]];then
   mv app/build/outputs/apk/app-release-unsigned.apk "app/build/outputs/apk/ModernArtUI.$TRAVIS_TAG.apk";
@@ -45,9 +52,8 @@ after_success:
 deploy:
   provider: releases
   skip_cleanup: true
-  api-key:
-    secure: INjK9H4HeVnVwxyuhsIP72k44YFDNDgjQ2R/Bu2AHYl6jxLzTUd4ZelNqbpXwN2V0CbdsVRRV0NBeDJs2duyRr7v7VvQ82U7iSgZywMLsqhqkmjoWYqRoI+Lst6wCW69u8/eLqyd8zfqgKfVifwijHKorpOG663ebhqaBXjRVG0=
-  file: $HOME/build/$TRAVIS_REPO_SLUG/app/build/outputs/apk/ModernArtUI.${TRAVIS_TAG}.apk
+  api-key: ${GH_TOKEN}
+  file: ${HOME}/build/${TRAVIS_REPO_SLUG}/app/build/outputs/apk/ModernArtUI.${TRAVIS_TAG}.apk
   on:
     tags: true
     all_branches: true
