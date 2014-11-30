@@ -20,6 +20,8 @@ before_script:
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
 script: ./gradlew build connectedCheck generatereleaseJavadoc
+after_failure:
+- cat /home/travis/build/TFaga/modern-art-ui/app/build/outputs/reports/androidTests/connected/index.html
 after_success:
 # Upload nightly build artifacts to azure blog storage
 - 'if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_TAG == "" ]]
