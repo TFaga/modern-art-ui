@@ -21,7 +21,7 @@ before_script:
 script: ./gradlew build generatereleaseJavadoc
 after_success:
 # Upload nightly build artifacts to azure blog storage
-- 'if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_TAG == "" ]]
+- 'if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_PULL_REQUEST == "false" && $TRAVIS_TAG == "" ]];then
 
   azure storage blob upload -q -a $AZURE_STORAGE_ACCOUNT -k
   $AZURE_STORAGE_ACCESS_KEY app/build/outputs/apk/app-debug.apk binaries "$TRAVIS_REPO_SLUG/modern-art-ui-debug.apk";
