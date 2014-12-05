@@ -81,14 +81,10 @@ public class MainActivity extends Activity {
                         int invG = ( invertedColor >> 8 ) & 0x000000FF;
                         int invB = invertedColor & 0x000000FF;
 
-                        child.setBackgroundColor( Color.rgb( ( int ) ( origR + ( invR - origR ) *
-                                                                               ( progress /
-                                                                                 100f ) ), ( int ) (
-                                origG + ( invG - origG ) * ( progress / 100f ) ), ( int ) ( origB +
-                                                                                            ( invB -
-                                                                                              origB ) *
-                                                                                            ( progress /
-                                                                                              100f ) ) ) );
+                        child.setBackgroundColor( Color.rgb(
+                                ( int ) ( origR + ( invR - origR ) * ( progress / 100f ) ),
+                                ( int ) ( origG + ( invG - origG ) * ( progress / 100f ) ),
+                                ( int ) ( origB + ( invB - origB ) * ( progress / 100f ) ) ) );
                         child.invalidate();
                     }
                 }
