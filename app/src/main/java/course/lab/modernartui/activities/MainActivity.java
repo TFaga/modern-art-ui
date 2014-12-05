@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
 
     /**
      * Called when the activity is starting.
-     *
+     * <p/>
      * Sets up the main activity content view and registers a change handler for the activities
      * seek bar.
      *
@@ -39,15 +39,15 @@ public class MainActivity extends Activity {
      *                           recently supplied.  <b><i>Note: Otherwise it is null.</i></b>
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate ( Bundle savedInstanceState ) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_main );
 
-        palette = (RelativeLayout) findViewById(R.id.palette);
-        SeekBar seek = (SeekBar) findViewById(R.id.seekBar);
+        palette = ( RelativeLayout ) findViewById( R.id.palette );
+        SeekBar seek = ( SeekBar ) findViewById( R.id.seekBar );
 
-        seek.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        seek.setOnSeekBarChangeListener( new SeekBar.OnSeekBarChangeListener() {
 
             /**
              * Notification that the seek bar progress level has changed.
@@ -61,29 +61,34 @@ public class MainActivity extends Activity {
              * @param fromUser True if the progress change was initiated by the user.
              */
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            public void onProgressChanged ( SeekBar seekBar, int progress, boolean fromUser ) {
 
-                for (int i = 0; i < palette.getChildCount(); i++) {
-                    View child = palette.getChildAt(i);
+                for ( int i = 0; i < palette.getChildCount(); i++ ) {
+                    View child = palette.getChildAt( i );
 
-                    int originalColor = Color.parseColor((String) child.getTag());
-                    int invertedColor = (0x00FFFFFF - (originalColor | 0xFF000000)) |
-                            (originalColor & 0xFF000000);
+                    int originalColor = Color.parseColor( ( String ) child.getTag() );
+                    int invertedColor = ( 0x00FFFFFF - ( originalColor | 0xFF000000 ) ) |
+                                        ( originalColor & 0xFF000000 );
 
-                    if (getResources().getColor(R.color.white) != originalColor && getResources()
-                            .getColor(R.color.lightgray) != originalColor) {
+                    if ( getResources().getColor( R.color.white ) != originalColor &&
+                         getResources().getColor( R.color.lightgray ) != originalColor ) {
 
-                        int origR = (originalColor >> 16) & 0x000000FF;
-                        int origG = (originalColor >> 8) & 0x000000FF;
+                        int origR = ( originalColor >> 16 ) & 0x000000FF;
+                        int origG = ( originalColor >> 8 ) & 0x000000FF;
                         int origB = originalColor & 0x000000FF;
 
-                        int invR = (invertedColor >> 16) & 0x000000FF;
-                        int invG = (invertedColor >> 8) & 0x000000FF;
+                        int invR = ( invertedColor >> 16 ) & 0x000000FF;
+                        int invG = ( invertedColor >> 8 ) & 0x000000FF;
                         int invB = invertedColor & 0x000000FF;
 
-                        child.setBackgroundColor(Color.rgb((int) (origR + (invR - origR) *
-                                (progress / 100f)), (int) (origG + (invG - origG) * (progress /
-                                100f)), (int) (origB + (invB - origB) * (progress / 100f))));
+                        child.setBackgroundColor( Color.rgb( ( int ) ( origR + ( invR - origR ) *
+                                                                               ( progress /
+                                                                                 100f ) ), ( int ) (
+                                origG + ( invG - origG ) * ( progress / 100f ) ), ( int ) ( origB +
+                                                                                            ( invB -
+                                                                                              origB ) *
+                                                                                            ( progress /
+                                                                                              100f ) ) ) );
                         child.invalidate();
                     }
                 }
@@ -95,7 +100,7 @@ public class MainActivity extends Activity {
              * @param seekBar The SeekBar in which the touch gesture began
              */
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onStartTrackingTouch ( SeekBar seekBar ) {
 
             }
 
@@ -105,16 +110,16 @@ public class MainActivity extends Activity {
              * @param seekBar The SeekBar in which the touch gesture began
              */
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
+            public void onStopTrackingTouch ( SeekBar seekBar ) {
 
             }
-        });
+        } );
     }
 
     /**
      * Initialize the contents of the Activity's standard options menu.  Menu items are placed
      * in to <var>menu</var>.
-     *
+     * <p/>
      * <p>This is only called once, the first time the options menu is
      * displayed.</p>
      *
@@ -123,21 +128,21 @@ public class MainActivity extends Activity {
      * if it returns false it will not be shown.
      */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu ( Menu menu ) {
 
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate( R.menu.menu_main, menu );
         return true;
     }
 
     /**
      * Evaluates when the user clicks the more information options menu.
-     *
+     * <p/>
      * Shows the more information dialog fragment.
      *
      * @param item The menu item that was clicked
      */
-    public void showDialog(MenuItem item) {
+    public void showDialog ( MenuItem item ) {
 
-        new MoreInformationDialog().show(getFragmentManager(), TAG);
+        new MoreInformationDialog().show( getFragmentManager(), TAG );
     }
 }
