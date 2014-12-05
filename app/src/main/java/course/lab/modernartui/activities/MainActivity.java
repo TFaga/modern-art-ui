@@ -18,6 +18,8 @@ import course.lab.modernartui.dialogs.MoreInformationDialog;
  * which changes the color of each rectangular (except the white and gray ones).
  *
  * @author Tilen Faganel
+ * @version 1.0.1
+ * @since 1.0.0
  */
 public class MainActivity extends Activity {
 

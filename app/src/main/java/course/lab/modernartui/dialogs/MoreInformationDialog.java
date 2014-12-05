@@ -14,6 +14,8 @@ import course.lab.modernartui.R;
  * Builds the more information dialog.
  *
  * @author Tilen Faganel
+ * @version 1.0.1
+ * @since 1.0.0
  */
 public class MoreInformationDialog extends DialogFragment {
 
