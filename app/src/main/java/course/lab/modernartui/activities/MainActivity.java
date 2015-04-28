@@ -1,7 +1,9 @@
 package course.lab.modernartui.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +13,7 @@ import android.widget.SeekBar;
 
 import course.lab.modernartui.R;
 import course.lab.modernartui.dialogs.MoreInformationDialog;
+import course.lab.modernartui.interfaces.FragmentAlertDialog;
 
 /**
  * Contains the main activity of the application. It contains a palette that holds several
@@ -21,7 +24,7 @@ import course.lab.modernartui.dialogs.MoreInformationDialog;
  * @version 1.0.1
  * @since 1.0.0
  */
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements FragmentAlertDialog {
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -140,5 +143,19 @@ public class MainActivity extends Activity {
     public void showDialog ( MenuItem item ) {
 
         new MoreInformationDialog().show( getFragmentManager(), TAG );
+    }
+
+    public void doPositiveClick() {
+        /**
+         * Sets up an intent to visit a website with a web browser and starts an
+         * activity with it.
+         */
+        Intent visit = new Intent( Intent.ACTION_VIEW, Uri.parse("http://www.moma.org") );
+        Intent chooser = Intent.createChooser( visit, getResources().getString( R.string.open_with ) );
+        startActivity(chooser);
+    }
+
+    public void doNegativeClick() {
+        // Do nothing.
     }
 }

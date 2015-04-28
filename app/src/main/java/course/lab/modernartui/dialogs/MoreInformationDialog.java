@@ -4,11 +4,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import course.lab.modernartui.R;
+import course.lab.modernartui.interfaces.FragmentAlertDialog;
 
 /**
  * Builds the more information dialog.
@@ -40,8 +39,6 @@ public class MoreInformationDialog extends DialogFragment {
                      * This method will be invoked when the positive button in the dialog
                      * is clicked.
                      * <p/>
-                     * Sets up an intent to visit a website with a web browser and starts an
-                     * activity with it.
                      *
                      * @param dialog The dialog that received the click.
                      * @param id     The button that was clicked (the position
@@ -49,13 +46,25 @@ public class MoreInformationDialog extends DialogFragment {
                      */
                     public void onClick ( DialogInterface dialog, int id ) {
 
-                        Intent visit = new Intent( Intent.ACTION_VIEW,
-                                Uri.parse( "http://www.moma.org" ) );
-                        Intent chooser = Intent.createChooser( visit,
-                                getResources().getString( R.string.open_with ) );
-                        startActivity( chooser );
-                            }
-                        } ).setNegativeButton( R.string.dialog_not_now, null );
+                        ((FragmentAlertDialog)getActivity()).doPositiveClick();
+                    }
+                } ).setNegativeButton( R.string.dialog_not_now,
+                new DialogInterface.OnClickListener() {
+
+                    /**
+                     * This method will be invoked when the negative button in the dialog
+                     * is clicked.
+                     * <p/>
+                     *
+                     * @param dialog The dialog that received the click.
+                     * @param id     The button that was clicked (the position
+                     *               of the item clicked.)
+                     */
+                    public void onClick ( DialogInterface dialog, int id ) {
+
+                        ((FragmentAlertDialog)getActivity()).doNegativeClick();
+                    }
+                }  );
 
         return builder.create();
     }
